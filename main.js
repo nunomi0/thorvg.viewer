@@ -357,9 +357,10 @@ function enableProgressContainer(enable = true) {
     var slider = document.getElementById("progress-slider");
     slider.disabled = !enable;
     slider.value = 0;
-
+    slider.max = player.totalFrame - 1;
     var value = document.getElementById("progress-value");
-    value.innerHTML = 0 + " / " + player.totalFrame;
+    value.innerHTML = 0 + " / " +  Math.floor(player.totalFrame - 1);
+    console.log(value.innerHTML);
 }
 
 function resize(width, height) {
@@ -482,7 +483,7 @@ function onZoomValue(event) {
 }
 
 function onProgressSlider(event) {
-    player.seek((event.target.value / 100) * player.totalFrame);
+    player.seek(Math.floor(event.target.value));
     refreshProgressValue();
 }
 
@@ -502,7 +503,7 @@ function onProgressStop() {
     slider.value = 0;
 
     var value = document.getElementById("progress-value");
-    value.innerHTML = 0 + " / " + player.totalFrame;
+    value.innerHTML = 0 + " / " +  Math.floor(player.totalFrame - 1);
 }
 
 function onAddFileUrl() {
@@ -631,9 +632,9 @@ function addByUrl() {
 
 function refreshProgressValue() {
     var slider = document.getElementById("progress-slider");
-    slider.value = (player.currentFrame / player.totalFrame) * 100;
+    slider.value = Math.floor(player.currentFrame);
     var value = document.getElementById("progress-value");
-    value.innerHTML = Math.round(player.currentFrame) + " / " + Math.floor(player.totalFrame);
+    value.innerHTML = Math.floor(player.currentFrame) + " / " + Math.floor(player.totalFrame - 1);
 }
 
 function refreshZoomValue() {
